@@ -1,13 +1,17 @@
-package com.codeko.moments;
+package com.codeko.moments.feature.splash;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.codeko.moments.R;
+import com.codeko.moments.feature.search.SearchActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -15,6 +19,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -39,23 +45,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mapFragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(GoogleMap googleMap) {
-                        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                        Random random = new Random();
 
-                        googleMap.addMarker(new MarkerOptions()
+                        googleMap.setMapType(random.nextInt(5));
+                        Log.d("map type", String.valueOf(googleMap.getMapType()));
+
+                        /*googleMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(37.4233438, -122.0728817))
-                                .title("LinkedIn")
+                                .title("LinkedIn xxx")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
                         googleMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(37.4629101,-122.2449094))
-                                .title("Facebook")
+                                .title("Facebook yyy")
                                 .snippet("Facebook HQ: Menlo Park"));
 
                         googleMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(37.3092293, -122.1136845))
-                                .title("Apple"));
+                                .title("Apple zzz"));
 
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.4233438, -122.0728817), 10));
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.4233438, -122.0728817), 10));*/
                     }
                 });
             }
@@ -79,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent searchActivity = new Intent(getApplicationContext(), SearchActivity.class);
+            startActivity(searchActivity);
             return true;
         }
 
