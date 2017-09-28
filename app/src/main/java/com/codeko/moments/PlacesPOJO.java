@@ -5,13 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PlacesPOJO {
     public class Root implements Serializable {
 
         @SerializedName("results")
-        public List customA = new ArrayList();
+        public List<CustomA> customA = new ArrayList<>();
         @SerializedName("status")
         public String status;
     }

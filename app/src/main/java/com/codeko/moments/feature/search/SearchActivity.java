@@ -66,8 +66,6 @@ public class SearchActivity extends AppCompatActivity {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-
             if (permissionsToRequest.size() > 0)
                 requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]), ALL_PERMISSIONS_RESULT);
             else {
@@ -101,8 +99,9 @@ public class SearchActivity extends AppCompatActivity {
 
                 if (split.length != 2) {
                     Toast.makeText(getApplicationContext(), "Please enter text in the required format", Toast.LENGTH_SHORT).show();
-                } else
+                } else {
                     fetchStores(split[0], split[1]);
+                }
             }
         });
 
@@ -122,23 +121,13 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PlacesPOJO.Root> call, Response<PlacesPOJO.Root> response) {
                 PlacesPOJO.Root root = response.body();
-
-
                 if (response.isSuccessful()) {
-
                     if (root.status.equals("OK")) {
-
                         results = root.customA;
                         storeModels = new ArrayList<>();
                         for (int i = 0; i < results.size(); i++) {
-
-                            if (i == 10)
-                                break;
                             PlacesPOJO.CustomA info = results.get(i);
-
-
                             fetchDistance(info);
-
                         }
 
                     } else {
@@ -202,8 +191,6 @@ public class SearchActivity extends AppCompatActivity {
                 }
 
                 if (permissionsRejected.size() > 0) {
-
-
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (shouldShowRequestPermissionRationale(permissionsRejected.get(0))) {
                             showMessageOKCancel("These permissions are mandatory for the application. Please allow access.",
@@ -218,7 +205,6 @@ public class SearchActivity extends AppCompatActivity {
                             return;
                         }
                     }
-
                 } else {
                     fetchLocation();
                 }
@@ -271,7 +257,7 @@ public class SearchActivity extends AppCompatActivity {
                         storeModels.add(new StoreModel(info.name, info.vicinity, totalDistance, totalDuration));
 
 
-                        if (storeModels.size() == 10 || storeModels.size() == results.size()) {
+                        if (storeModels.size() == results.size()) {
                             RecyclerViewAdapter adapterStores = new RecyclerViewAdapter(results, storeModels);
                             recyclerView.setAdapter(adapterStores);
                         }

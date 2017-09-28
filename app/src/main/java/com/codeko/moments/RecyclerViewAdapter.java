@@ -15,7 +15,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     public RecyclerViewAdapter(List<PlacesPOJO.CustomA> stores, List<StoreModel> storeModels) {
-
         stLstStores = stores;
         models = storeModels;
     }
@@ -30,25 +29,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-
         holder.setData(stLstStores.get(holder.getAdapterPosition()), holder, models.get(holder.getAdapterPosition()));
     }
 
 
     @Override
     public int getItemCount() {
-        return Math.min(5, stLstStores.size());
+        return stLstStores.size();
     }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-
         TextView txtStoreName;
         TextView txtStoreAddr;
         TextView txtStoreDist;
         StoreModel model;
-
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -56,21 +52,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.txtStoreDist = (TextView) itemView.findViewById(R.id.txtStoreDist);
             this.txtStoreName = (TextView) itemView.findViewById(R.id.txtStoreName);
             this.txtStoreAddr = (TextView) itemView.findViewById(R.id.txtStoreAddr);
-
-
         }
 
 
         public void setData(PlacesPOJO.CustomA info, MyViewHolder holder, StoreModel storeModel) {
-
 
             this.model = storeModel;
 
             holder.txtStoreDist.setText(model.distance + "\n" + model.duration);
             holder.txtStoreName.setText(info.name);
             holder.txtStoreAddr.setText(info.vicinity);
-
-
         }
 
     }
